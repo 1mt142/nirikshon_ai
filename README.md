@@ -42,7 +42,6 @@ Ensure your detection model includes harmful objects and is properly configured.
 
 - Real-time object detection using YOLOv8
 - Multi-threaded processing for smooth performance
-- YOLO model
 - Configurable target object detection
 - Confidence threshold filtering
 
