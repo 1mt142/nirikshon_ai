@@ -6,9 +6,9 @@ CONFIDENCE_THRESHOLD=0.6
 DETECTION_COOLDOWN=5
 
 # Notification Settings
-WHATSAPP_NUMBER=+88---------
-WHATSAPP_MESSAGE="🚨 Security Alert"
+WHATSAPP_NUMBER=+880
+WHATSAPP_MESSAGE="🚨 Security Alert:: Object Detected!"
 
 # Camera Configuration
-USE_IP_CAMERA=false
+USE_IP_CAMERA=False
 IP_CAMERA_URL="rtsp://username:password@ip:port"

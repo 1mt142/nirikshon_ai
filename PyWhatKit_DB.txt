@@ -1,0 +1,36 @@
+Date: 21/6/2025
+Time: 21:11
+Phone Number: +8801739972425
+Image: detections/compressed.jpg
+Caption: 🚨 Alert: Object Detected!Count: 1Time: 21:11:58Location: https://maps.google.com/?q=23.7104,90.4074
+--------------------
+Date: 21/6/2025
+Time: 21:29
+Phone Number: +8801739972425
+Image: detections/compressed.jpg
+Caption: 🚨 Security AlertCount: 1Time: 21:29:36
+--------------------
+Date: 21/6/2025
+Time: 21:29
+Phone Number: +8801739972425
+Image: detections/compressed.jpg
+Caption: 🚨 Security AlertCount: 2Time: 21:29:37
+--------------------
+Date: 21/6/2025
+Time: 21:30
+Phone Number: +8801739972425
+Image: detections/compressed.jpg
+Caption: 🚨 Security AlertCount: 3Time: 21:30:07
+--------------------
+Date: 21/6/2025
+Time: 21:30
+Phone Number: +8801739972425
+Image: detections/compressed.jpg
+Caption: 🚨 Security AlertCount: 4Time: 21:30:07
+--------------------
+Date: 21/6/2025
+Time: 21:31
+Phone Number: +8801739972425
+Image: detections/compressed.jpg
+Caption: 🚨 Security AlertCount: 5Time: 21:31:07
+--------------------
