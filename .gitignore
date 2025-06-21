@@ -1,7 +1,6 @@
 # Ignore generated files
 *.mp4
 *.jpg
-*.png
 
 # Ignore Python cache files
 __pycache__/
