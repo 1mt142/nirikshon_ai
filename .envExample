@@ -12,3 +12,4 @@ WHATSAPP_MESSAGE="🚨 Security Alert:: Object Detected!"
 # Camera Configuration
 USE_IP_CAMERA=False
 IP_CAMERA_URL="rtsp://username:password@ip:port"
+ENABLE_GEOLOCATION=False
