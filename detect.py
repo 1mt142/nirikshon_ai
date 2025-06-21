@@ -9,12 +9,14 @@ import pywhatkit
 from dotenv import load_dotenv
 import pygame
 from PIL import Image
+import geocoder
+from datetime import datetime
 
 load_dotenv()
 
 TARGET_CLASS = int(os.getenv('TARGET_CLASS', 67))  # 67 for cell phone detection in test purpose
 CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.6))
-DETECTION_COOLDOWN = float(os.getenv('DETECTION_COOLDOWN', 5.0))
+DETECTION_COOLDOWN = float(os.getenv('DETECTION_COOLDOWN', 100))
 WHATSAPP_NUMBER = os.getenv('WHATSAPP_NUMBER')
 WHATSAPP_MESSAGE = os.getenv('WHATSAPP_MESSAGE', '🚨 Alert: Object Detected!')
 
@@ -52,6 +54,17 @@ coco_classes = [
     'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
 ]
 
+def get_current_location():
+    """Get current GPS coordinates using geocoder"""
+    try:
+        g = geocoder.ip('me')
+        if g.latlng:
+            return g.latlng
+        return None
+    except Exception as e:
+        print(f"[GPS Error] {e}")
+        return None
+
 def detection_worker():
     """Worker thread for object detection"""
     while True:
@@ -85,11 +98,15 @@ def play_alert_sound():
     except Exception as e:
         print(f"[Sound Error] {e}")
 
-def send_whatsapp_alert(count, image_path=None):
-    """Send alert with optional image in background thread"""
+def send_whatsapp_alert(count, image_path=None, location=None):
+    """Send alert with optional image and location in background thread"""
     def _send():
         try:
-            message = f"{WHATSAPP_MESSAGE}\nCount: {count}\nTime: {time.strftime('%H:%M:%S')}"
+            timestamp = datetime.now().strftime('%H:%M:%S')
+            message = f"{WHATSAPP_MESSAGE}\nCount: {count}\nTime: {timestamp}"
+            
+            if location:
+                message += f"\nLocation: https://maps.google.com/?q={location[0]},{location[1]}"
             
             if image_path and os.path.exists(image_path):
                 img = Image.open(image_path)
@@ -153,8 +170,11 @@ try:
                 filename = f"detections/detect_{timestamp}.jpg"
                 cv2.imwrite(filename, frame)
                 
+                # Get current location when detection occurs
+                location = get_current_location()
+                
                 play_alert_sound()
-                send_whatsapp_alert(object_count, filename)
+                send_whatsapp_alert(object_count, filename, location)
         
         for detection in detections:
             x1, y1, x2, y2 = map(int, detection['box'])
@@ -165,6 +185,13 @@ try:
             cv2.rectangle(frame, (x1, y1 - 25), (x1 + w, y1), (0, 0, 255), -1)
             cv2.putText(frame, label, (x1, y1 - 5),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+        
+        # Display GPS coordinates if available
+        location = get_current_location()
+        if location:
+            gps_text = f"GPS: {location[0]:.4f}, {location[1]:.4f}"
+            cv2.putText(frame, gps_text, (10, 150),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
         
         cv2.putText(frame, f"Detecting: {coco_classes[TARGET_CLASS]}", (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
