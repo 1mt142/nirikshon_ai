@@ -1,0 +1,14 @@
+# Detection Parameters
+#TESTING :: For phone detection use TARGET_CLASS=67
+# For rocket detection use TARGET_CLASS=76
+TARGET_CLASS=67
+CONFIDENCE_THRESHOLD=0.6
+DETECTION_COOLDOWN=5
+
+# Notification Settings
+WHATSAPP_NUMBER=+88---------
+WHATSAPP_MESSAGE="🚨 Security Alert"
+
+# Camera Configuration
+USE_IP_CAMERA=false
+IP_CAMERA_URL="rtsp://username:password@ip:port"
